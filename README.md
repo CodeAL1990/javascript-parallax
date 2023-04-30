@@ -60,4 +60,16 @@ Assign slider.value to gameSpeed
 Initialize showGameSpeed and link it to showGameSpeed span id in html
 Create event listener for slider to listen for change whenever the target value of the event(in this case the slider) changes
 Assign gameSpeed to the event's target value inside the event listener and do the same for showGameSpeed text content
-//TODO refactor x and x2 to a single variable x
+To refactor x2 x to a single variable of x, remove/comment out all instances of x2
+Replace the x2 in drawImage to x
+To account for the removal add back the width to the x coordinate in drawImage
+Lastly, instead of assigning the if condition of x to the game's speed and such, assign it to 0 so the loop will restart precisely when the total length of the image (2400px) is met and reset it back to the initial position
+Instead of using Math.floor for this.x calculation, you can initialize a new global variable called gameFrame and set it to 0;
+You can then do gameFrame-- after the forEach loop in animate so the image will move to the left
+Then, instead of using x deducted by the game's speed to calculate its position, you can use a modulus operator for gameFrame against the width for the position of x
+The parallex effect is gone now, multiply gameFrame by the game speed before initiating the modulus operator against the width to get the effect back
+To prevent the animation 'jumps' when switching between gameSpeed when using slider, add the line gameFrame = gameFrame \* gameSpeed / e.target.value.
+The above line of code is to save the position when changing the speed in the slider by inverse proportionally changing the gameFrame according to the gameSpeed(no i dea what this means but just putting it here)
+If you do not want to use the above you can remove all gameFrame related variables and use the if condition you originally used instead(because it's easier to understand)
+To make sure the parallax background works on your browser, add an on load event listener for window below the global variables for canvas, context, width, height and all the backgroundLayers
+Then, move everything from the global variable slider to the animate function into the function of the window event listener
